@@ -4,8 +4,6 @@ target = pdfinfo-json
 objects = main.o JSInfo.o parseargs.o is_utf8.o
 dependencies = $(objects:%.o=%.d)
 
-PREFIX = /usr/local
-
 CPPFLAGS = -g -O2 -MD -MP $$(pkg-config poppler --cflags) -Irapidjson/include
 LDFLAGS = $$(pkg-config poppler --libs)
 
