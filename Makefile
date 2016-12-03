@@ -11,7 +11,7 @@ LDFLAGS = $$(pkg-config poppler --libs)
 
 all: $(target)
 
-install:
+install: all
 	install -d $(PREFIX)/bin
 	install -m 755 $(target) $(PREFIX)/bin
 
