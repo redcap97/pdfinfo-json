@@ -36,7 +36,7 @@ extern "C" {
 #include "is_utf8.h"
 }
 
-#define PACKAGE_VERSION "0.1.1"
+#define PACKAGE_VERSION "0.1.2"
 
 using rapidjson::PrettyWriter;
 using rapidjson::StringBuffer;
