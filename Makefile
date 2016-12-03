@@ -9,6 +9,13 @@ PREFIX = /usr/local
 CPPFLAGS = -g -O2 -MD -MP $$(pkg-config poppler --cflags) -Irapidjson/include
 LDFLAGS = $$(pkg-config poppler --libs)
 
+ifdef PREFIX
+	export PKG_CONFIG_PATH = $(PREFIX)/lib/pkgconfig
+	LDFLAGS += -Wl,-rpath,$(PREFIX)/lib
+else
+	PREFIX = /usr/local
+endif
+
 all: $(target)
 
 install: all
