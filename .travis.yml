@@ -1,0 +1,21 @@
+language: cpp
+dist: trusty
+sudo: required
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+    - os: linux
+      compiler: clang
+
+cache:
+  ccache: true
+  directories:
+    - .cache
+
+before_install:
+  - travis-ci/before-install
+
+script:
+  - travis-ci/build
