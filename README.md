@@ -72,9 +72,11 @@ $ pdfinfo-json /path/to/pdf-file
 
 ```
 # Build and install to /usr/local
+make
 make install
 
 # Build and install to /usr
+make PREFIX=/usr
 make install PREFIX=/usr
 ```
 
