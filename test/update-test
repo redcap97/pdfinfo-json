@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -x
+
+./pdfinfo-json test/data.pdf > test/data-stdout.txt
+./pdfinfo-json test/data-locked.pdf > test/data-locked-stdout.txt 2> test/data-locked-stderr.txt
+./pdfinfo-json --owner-password 42 test/data-locked.pdf > test/data-with-password-stdout.txt
+./pdfinfo-json test/data-with-annotations.pdf > test/data-with-annotations-stdout.txt
+./pdfinfo-json test/data-with-javascript.pdf > test/data-with-javascript-stdout.txt
+./pdfinfo-json test/data-with-form.pdf > test/data-with-form-stdout.txt
+./pdfinfo-json test/data-unembedded-fonts.pdf > test/data-unembedded-fonts-stdout.txt
