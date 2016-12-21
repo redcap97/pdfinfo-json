@@ -1,0 +1,42 @@
+{
+    "version": "1.4",
+    "is_tagged": true,
+    "contains_form": false,
+    "contains_javascript": false,
+    "number_of_pages": 1,
+    "is_encrypted": false,
+    "pages": [
+        {
+            "page_number": 1,
+            "media_box": {
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 595.3199999999999,
+                "height": 841.92
+            },
+            "crop_box": {
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 595.3199999999999,
+                "height": 841.92
+            },
+            "number_of_annotations": 0
+        }
+    ],
+    "fonts": [
+        {
+            "name": "ABCDEE+Century",
+            "type": "TrueType",
+            "encoding": "WinAnsi",
+            "is_embedded": true,
+            "is_subset": true
+        },
+        {
+            "name": "ABCDEE+Times New Roman",
+            "type": "TrueType",
+            "encoding": "WinAnsi",
+            "is_embedded": true,
+            "is_subset": true
+        }
+    ]
+}

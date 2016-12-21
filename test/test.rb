@@ -53,6 +53,13 @@ class PdfInfoJsonTest < Test::Unit::TestCase
     )
   end
 
+  def test_pdf_tagged
+    assert_command(
+      %w(./pdfinfo-json test/data-tagged.pdf),
+      expected_stdout: File.read('test/data-tagged-stdout.txt')
+    )
+  end
+
   private
 
   def assert_command(arguments, expected_stdout: '', expected_stderr: '', expected_status: 0)
