@@ -18,6 +18,13 @@ class PdfInfoJsonTest < Test::Unit::TestCase
     )
   end
 
+  def test_pdf_with_password
+    assert_command(
+      %w(./pdfinfo-json --owner-password 42 test/data-locked.pdf),
+      expected_stdout: File.read('test/data-with-password-stdout.txt'),
+    )
+  end
+
   def test_pdf_with_annoations
     assert_command(
       %w(./pdfinfo-json test/data-with-annotations.pdf),
