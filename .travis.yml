@@ -1,0 +1,10 @@
+language: c
+cache: ccache
+dist: trusty
+sudo: required
+
+before_install:
+  - travis-ci/before-install
+
+script:
+  - travis-ci/build
