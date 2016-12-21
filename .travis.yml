@@ -1,5 +1,4 @@
 language: cpp
-cache: ccache
 dist: trusty
 sudo: required
 
@@ -9,6 +8,11 @@ matrix:
       compiler: gcc
     - os: linux
       compiler: clang
+
+cache:
+  ccache: true
+  directories:
+    - .cache
 
 before_install:
   - travis-ci/before-install

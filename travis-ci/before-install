@@ -11,10 +11,14 @@ POPPLER_NAME="poppler-${POPPLER_VERSION}"
 POPPLER_DATA_VERSION="0.4.7"
 POPPLER_DATA_NAME="poppler-data-${POPPLER_DATA_VERSION}"
 
+mkdir -p .cache
+
 sudo apt-get install -y build-essential pkg-config wget libfontconfig1-dev libcairo2-dev checkinstall libjpeg-dev libopenjpeg-dev
 
-wget https://poppler.freedesktop.org/${POPPLER_NAME}.tar.xz
-tar xf ${POPPLER_NAME}.tar.xz
+if [ ! -f .cache/${POPPLER_NAME}.tar.xz ]; then
+  wget https://poppler.freedesktop.org/${POPPLER_NAME}.tar.xz -P .cache
+fi
+tar xf .cache/${POPPLER_NAME}.tar.xz
 
 pushd ${POPPLER_NAME}
 ./configure --disable-poppler-qt4 --disable-poppler-qt5 --disable-poppler-glib --disable-poppler-cpp --enable-xpdf-headers
@@ -22,8 +26,10 @@ make -j4
 sudo make install
 popd
 
-wget https://poppler.freedesktop.org/${POPPLER_DATA_NAME}.tar.gz
-tar xf ${POPPLER_DATA_NAME}.tar.gz
+if [ ! -f .cache/${POPPLER_DATA_NAME}.tar.gz ]; then
+  wget https://poppler.freedesktop.org/${POPPLER_DATA_NAME}.tar.gz -P .cache
+fi
+tar xf .cache/${POPPLER_DATA_NAME}.tar.gz
 
 pushd ${POPPLER_DATA_NAME}
 sudo make install
