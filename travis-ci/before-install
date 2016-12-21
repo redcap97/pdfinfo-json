@@ -14,7 +14,7 @@ wget https://poppler.freedesktop.org/${POPPLER_NAME}.tar.xz
 tar xf ${POPPLER_NAME}.tar.xz
 
 pushd ${POPPLER_NAME}
-./configure --disable-poppler-qt4 --disable-poppler-qt5 --disable-poppler-glib --disable-poppler-cpp
+./configure --disable-poppler-qt4 --disable-poppler-qt5 --disable-poppler-glib --disable-poppler-cpp --enable-xpdf-headers
 make -j4
 sudo make install
 popd
