@@ -39,6 +39,13 @@ class PdfInfoJsonTest < Test::Unit::TestCase
     )
   end
 
+  def test_pdf_with_form
+    assert_command(
+      %w(./pdfinfo-json test/data-with-form.pdf),
+      expected_stdout: File.read('test/data-with-form-stdout.txt')
+    )
+  end
+
   private
 
   def assert_command(arguments, expected_stdout: '', expected_stderr: '', expected_status: 0)
