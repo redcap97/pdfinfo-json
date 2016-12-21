@@ -3,6 +3,7 @@
 set -exu
 
 export CC=gcc
+export CXX=g++
 
 POPPLER_VERSION="0.49.0"
 POPPLER_NAME="poppler-${POPPLER_VERSION}"
