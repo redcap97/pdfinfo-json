@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/redcap97/pdfinfo-json.svg?branch=master)](https://travis-ci.org/redcap97/pdfinfo-json)
+
 # pdfinfo-json
 
 pdfinfo-json is a PDF document information extractor which outputs data using JSON.
