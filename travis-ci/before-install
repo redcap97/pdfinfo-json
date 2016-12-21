@@ -34,3 +34,5 @@ tar xf .cache/${POPPLER_DATA_NAME}.tar.gz
 pushd ${POPPLER_DATA_NAME}
 sudo make install
 popd
+
+sudo ldconfig
