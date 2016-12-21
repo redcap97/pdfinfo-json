@@ -16,6 +16,9 @@ endif
 
 all: $(target)
 
+test: all
+	ruby test/test.rb
+
 install: all
 	install -d $(PREFIX)/bin
 	install -m 755 $(target) $(PREFIX)/bin
