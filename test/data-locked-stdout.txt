@@ -1,0 +1,6 @@
+{
+    "error": {
+        "code": 4,
+        "message": "File was encrypted and password was incorrect or not supplied"
+    }
+}

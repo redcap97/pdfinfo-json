@@ -9,6 +9,15 @@ class PdfInfoJsonTest < Test::Unit::TestCase
     )
   end
 
+  def test_locked_pdf
+    assert_command(
+      %w(./pdfinfo-json test/data-locked.pdf),
+      expected_stdout: File.read('test/data-locked-stdout.txt'),
+      expected_stderr: File.read('test/data-locked-stderr.txt'),
+      expected_status: 1
+    )
+  end
+
   def test_pdf_with_annoations
     assert_command(
       %w(./pdfinfo-json test/data-with-annotations.pdf),
@@ -21,7 +30,7 @@ class PdfInfoJsonTest < Test::Unit::TestCase
   def assert_command(arguments, expected_stdout: '', expected_stderr: '', expected_status: 0)
     stdout, stderr, status = Open3.capture3(*arguments)
 
-    assert_equal(expected_status, status.to_i)
+    assert_equal(expected_status, status.to_i >> 8)
     assert_equal(expected_stdout, stdout)
     assert_equal(expected_stderr, stderr)
   end
