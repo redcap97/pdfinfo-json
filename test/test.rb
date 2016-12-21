@@ -9,6 +9,13 @@ class PdfInfoJsonTest < Test::Unit::TestCase
     )
   end
 
+  def test_pdf_with_annoations
+    assert_command(
+      %w(./pdfinfo-json test/data-with-annotations.pdf),
+      expected_stdout: File.read('test/data-with-annotations-stdout.txt')
+    )
+  end
+
   private
 
   def assert_command(arguments, expected_stdout: '', expected_stderr: '', expected_status: 0)
