@@ -3,6 +3,13 @@ cache: ccache
 dist: trusty
 sudo: required
 
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+    - os: linux
+      compiler: clang
+
 before_install:
   - travis-ci/before-install
 
