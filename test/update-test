@@ -3,6 +3,7 @@
 set -x
 
 ./pdfinfo-json test/data.pdf > test/data-stdout.txt
+./pdfinfo-json test/data-blank.pdf > test/data-blank-stdout.txt
 ./pdfinfo-json test/data-locked.pdf > test/data-locked-stdout.txt 2> test/data-locked-stderr.txt
 ./pdfinfo-json --owner-password 42 test/data-locked.pdf > test/data-with-password-stdout.txt
 ./pdfinfo-json test/data-with-annotations.pdf > test/data-with-annotations-stdout.txt

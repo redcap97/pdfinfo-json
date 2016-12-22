@@ -15,10 +15,10 @@
                 "height": 841.89
             },
             "crop_box": {
-                "offset_x": 8.50394,
-                "offset_y": 8.50394,
-                "width": 578.27206,
-                "height": 824.8820599999999
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 595.2800000000001,
+                "height": 841.89
             },
             "is_monochrome": true,
             "is_grayscale": true,
@@ -26,13 +26,5 @@
             "number_of_annotations": 0
         }
     ],
-    "fonts": [
-        {
-            "name": "MEECTU+TimesNewRomanPSMT",
-            "type": "TrueType",
-            "encoding": "MacRoman",
-            "is_embedded": true,
-            "is_subset": true
-        }
-    ]
+    "fonts": []
 }

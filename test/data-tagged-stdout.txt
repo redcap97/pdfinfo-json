@@ -20,6 +20,9 @@
                 "width": 595.3199999999999,
                 "height": 841.92
             },
+            "is_monochrome": true,
+            "is_grayscale": true,
+            "is_transparent": false,
             "number_of_annotations": 0
         }
     ],

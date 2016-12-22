@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <PDFDoc.h>
 #include <PDFDocFactory.h>
+#include <PreScanOutputDev.h>
 #include <Annot.h>
 #include <FontInfo.h>
 #include <GlobalParams.h>
@@ -98,6 +99,18 @@ namespace {
     return !is_utf8((unsigned char *)str, strlen(str), &message, &faulty_bytes);
   }
 
+  GooList *scanFonts(PDFDoc *doc) {
+    FontInfoScanner scanner(doc, 0);
+    return scanner.scan(doc->getNumPages());
+  }
+
+  void cleanupFonts(GooList *fonts) {
+    for (int i = 0, length = fonts->getLength(); i < length; ++i) {
+      delete (FontInfo*)fonts->get(i);
+    }
+    delete fonts;
+  }
+
   template <typename JSON>
   void write_string(JSON &json, const char *str) {
     if (ignoreEncodingError) {
@@ -146,17 +159,33 @@ namespace {
   }
 
   template <typename JSON>
-  void write_page(JSON &json, Page *page, int page_number) {
+  void write_page(JSON &json, PDFDoc *doc, Page *page) {
     json.StartObject();
 
     json.Key("page_number");
-    json.Int(page_number);
+    json.Int(page->getNum());
 
     json.Key("media_box");
     write_box(json, page->getMediaBox());
 
     json.Key("crop_box");
     write_box(json, page->getCropBox());
+
+    {
+      PreScanOutputDev *scan = new PreScanOutputDev(doc);
+      page->display(scan, 72, 72, 0, gTrue, gFalse, gFalse);
+
+      json.Key("is_monochrome");
+      json.Bool(scan->isMonochrome() ? true : false);
+
+      json.Key("is_grayscale");
+      json.Bool(scan->isGray() ? true : false);
+
+      json.Key("is_transparent");
+      json.Bool(scan->usesTransparency() ? true : false);
+
+      delete scan;
+    }
 
     json.Key("number_of_annotations");
     json.Int(page->getAnnots()->getNumAnnots());
@@ -200,6 +229,9 @@ namespace {
 
   template <typename JSON>
   void write_json(JSON &json, PDFDoc *doc) {
+    // Prefetch FontInfo objects because PreScanOutputDev modifies data for fonts sometimes
+    GooList *fonts = scanFonts(doc);
+
     json.StartObject();
 
     json.Key("version");
@@ -227,28 +259,24 @@ namespace {
     json.Key("pages");
     json.StartArray();
     for (int i = 1, last = doc->getNumPages(); i <= last; ++i) {
-      write_page(json, doc->getPage(i), i);
+      write_page(json, doc, doc->getPage(i));
     }
     json.EndArray();
 
     json.Key("fonts");
     json.StartArray();
-    {
-      FontInfoScanner scanner(doc, 0);
-      GooList *fonts = scanner.scan(doc->getNumPages());
-
-      if (fonts) {
-        for (int i = 0, length = fonts->getLength(); i < length; ++i) {
-          FontInfo *font = (FontInfo *)fonts->get(i);
-          write_font(json, font);
-          delete font;
-        }
-        delete fonts;
+    if (fonts) {
+      for (int i = 0, length = fonts->getLength(); i < length; ++i) {
+        write_font(json, (FontInfo*)fonts->get(i));
       }
     }
     json.EndArray();
 
     json.EndObject();
+
+    if (fonts) {
+      cleanupFonts(fonts);
+    }
   }
 
   void output_json(PDFDoc *doc) {
