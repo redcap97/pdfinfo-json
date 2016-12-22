@@ -99,6 +99,18 @@ namespace {
     return !is_utf8((unsigned char *)str, strlen(str), &message, &faulty_bytes);
   }
 
+  GooList *scanFonts(PDFDoc *doc) {
+    FontInfoScanner scanner(doc, 0);
+    return scanner.scan(doc->getNumPages());
+  }
+
+  void cleanupFonts(GooList *fonts) {
+    for (int i = 0, length = fonts->getLength(); i < length; ++i) {
+      delete (FontInfo*)fonts->get(i);
+    }
+    delete fonts;
+  }
+
   template <typename JSON>
   void write_string(JSON &json, const char *str) {
     if (ignoreEncodingError) {
@@ -217,6 +229,9 @@ namespace {
 
   template <typename JSON>
   void write_json(JSON &json, PDFDoc *doc) {
+    // Cache FontInfo objects because PreScanOutputDev modifies data for fonts sometimes
+    GooList *fonts = scanFonts(doc);
+
     json.StartObject();
 
     json.Key("version");
@@ -250,22 +265,18 @@ namespace {
 
     json.Key("fonts");
     json.StartArray();
-    {
-      FontInfoScanner scanner(doc, 0);
-      GooList *fonts = scanner.scan(doc->getNumPages());
-
-      if (fonts) {
-        for (int i = 0, length = fonts->getLength(); i < length; ++i) {
-          FontInfo *font = (FontInfo *)fonts->get(i);
-          write_font(json, font);
-          delete font;
-        }
-        delete fonts;
+    if (fonts) {
+      for (int i = 0, length = fonts->getLength(); i < length; ++i) {
+        write_font(json, (FontInfo*)fonts->get(i));
       }
     }
     json.EndArray();
 
     json.EndObject();
+
+    if (fonts) {
+      cleanupFonts(fonts);
+    }
   }
 
   void output_json(PDFDoc *doc) {
