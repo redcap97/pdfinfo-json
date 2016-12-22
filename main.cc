@@ -229,7 +229,7 @@ namespace {
 
   template <typename JSON>
   void write_json(JSON &json, PDFDoc *doc) {
-    // Cache FontInfo objects because PreScanOutputDev modifies data for fonts sometimes
+    // Prefetch FontInfo objects because PreScanOutputDev modifies data for fonts sometimes
     GooList *fonts = scanFonts(doc);
 
     json.StartObject();
