@@ -19,7 +19,7 @@ all: $(target)
 test: all
 	ruby test/test.rb
 
-update-test:
+update-test: all
 	test/update-test
 
 install: all
