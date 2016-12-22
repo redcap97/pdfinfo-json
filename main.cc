@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <PDFDoc.h>
 #include <PDFDocFactory.h>
+#include <PreScanOutputDev.h>
 #include <Annot.h>
 #include <FontInfo.h>
 #include <GlobalParams.h>
@@ -146,7 +147,7 @@ namespace {
   }
 
   template <typename JSON>
-  void write_page(JSON &json, Page *page) {
+  void write_page(JSON &json, PDFDoc *doc, Page *page) {
     json.StartObject();
 
     json.Key("page_number");
@@ -157,6 +158,22 @@ namespace {
 
     json.Key("crop_box");
     write_box(json, page->getCropBox());
+
+    {
+      PreScanOutputDev *scan = new PreScanOutputDev(doc);
+      page->display(scan, 72, 72, 0, gTrue, gFalse, gFalse);
+
+      json.Key("is_monochrome");
+      json.Bool(scan->isMonochrome() ? true : false);
+
+      json.Key("is_grayscale");
+      json.Bool(scan->isGray() ? true : false);
+
+      json.Key("is_transparent");
+      json.Bool(scan->usesTransparency() ? true : false);
+
+      delete scan;
+    }
 
     json.Key("number_of_annotations");
     json.Int(page->getAnnots()->getNumAnnots());
@@ -227,7 +244,7 @@ namespace {
     json.Key("pages");
     json.StartArray();
     for (int i = 1, last = doc->getNumPages(); i <= last; ++i) {
-      write_page(json, doc->getPage(i));
+      write_page(json, doc, doc->getPage(i));
     }
     json.EndArray();
 
