@@ -1,0 +1,30 @@
+{
+    "version": "1.3",
+    "is_tagged": false,
+    "contains_form": false,
+    "contains_javascript": false,
+    "number_of_pages": 1,
+    "is_encrypted": false,
+    "pages": [
+        {
+            "page_number": 1,
+            "media_box": {
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 595.2800000000001,
+                "height": 841.89
+            },
+            "crop_box": {
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 595.2800000000001,
+                "height": 841.89
+            },
+            "is_monochrome": true,
+            "is_grayscale": true,
+            "is_transparent": false,
+            "number_of_annotations": 0
+        }
+    ],
+    "fonts": []
+}

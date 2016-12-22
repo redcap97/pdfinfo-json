@@ -9,6 +9,13 @@ class PdfInfoJsonTest < Test::Unit::TestCase
     )
   end
 
+  def test_blank_pdf
+    assert_command(
+      %w(./pdfinfo-json test/data-blank.pdf),
+      expected_stdout: File.read('test/data-blank-stdout.txt'),
+    )
+  end
+
   def test_locked_pdf
     assert_command(
       %w(./pdfinfo-json test/data-locked.pdf),
