@@ -146,11 +146,11 @@ namespace {
   }
 
   template <typename JSON>
-  void write_page(JSON &json, Page *page, int page_number) {
+  void write_page(JSON &json, Page *page) {
     json.StartObject();
 
     json.Key("page_number");
-    json.Int(page_number);
+    json.Int(page->getNum());
 
     json.Key("media_box");
     write_box(json, page->getMediaBox());
@@ -227,7 +227,7 @@ namespace {
     json.Key("pages");
     json.StartArray();
     for (int i = 1, last = doc->getNumPages(); i <= last; ++i) {
-      write_page(json, doc->getPage(i), i);
+      write_page(json, doc->getPage(i));
     }
     json.EndArray();
 
