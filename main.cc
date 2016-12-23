@@ -101,7 +101,9 @@ namespace {
 
   GooList *scanFonts(PDFDoc *doc) {
     FontInfoScanner scanner(doc, 0);
-    return scanner.scan(doc->getNumPages());
+    GooList *list = scanner.scan(doc->getNumPages());
+    assert(list);
+    return list;
   }
 
   void cleanupFonts(GooList *fonts) {
@@ -265,18 +267,14 @@ namespace {
 
     json.Key("fonts");
     json.StartArray();
-    if (fonts) {
-      for (int i = 0, length = fonts->getLength(); i < length; ++i) {
-        write_font(json, (FontInfo*)fonts->get(i));
-      }
+    for (int i = 0, length = fonts->getLength(); i < length; ++i) {
+      write_font(json, (FontInfo*)fonts->get(i));
     }
     json.EndArray();
 
     json.EndObject();
 
-    if (fonts) {
-      cleanupFonts(fonts);
-    }
+    cleanupFonts(fonts);
   }
 
   void output_json(PDFDoc *doc) {
