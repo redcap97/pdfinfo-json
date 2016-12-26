@@ -44,7 +44,6 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
 			       ImageType imageType) {
   const char *type;
   const char *colorspace;
-  const char *enc;
   int components, bpc;
 
   ImageInfo info;
@@ -113,33 +112,6 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
   info.colorspace = colorspace;
   info.components = components;
   info.bpc = bpc;
-
-  switch (str->getKind()) {
-  case strCCITTFax:
-    enc = "ccitt";
-    break;
-  case strDCT:
-    enc = "jpeg";
-    break;
-  case strJPX:
-    enc = "jpx";
-    break;
-  case strJBIG2:
-    enc = "jbig2";
-    break;
-  case strFile:
-  case strFlate:
-  case strCachedFile:
-  case strASCIIHex:
-  case strASCII85:
-  case strLZW:
-  case strRunLength:
-  case strWeird:
-  default:
-    enc = "image";
-    break;
-  }
-  info.enc = enc;
 
   double *mat = state->getCTM();
   double width2 = mat[0] + mat[2];

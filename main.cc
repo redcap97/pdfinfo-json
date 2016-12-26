@@ -191,13 +191,6 @@ namespace {
     json.Key("bits_per_component");
     json.Int(image->bpc);
 
-    json.Key("encoding");
-    if (image->enc) {
-      write_string(json, image->enc);
-    } else {
-      json.Null();
-    }
-
     json.Key("x_ppi");
     assert(json.Double(image->xppi));
 

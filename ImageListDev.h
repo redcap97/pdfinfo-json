@@ -41,12 +41,11 @@ struct ImageInfo {
   const char *colorspace;
   int components;
   int bpc;
-  const char *enc;
   double xppi;
   double yppi;
 
   ImageInfo() : pageNum(0), imgNum(0), type(NULL), width(0), height(0),
-    colorspace(NULL), components(0), bpc(0), enc(NULL), xppi(0), yppi(0) {}
+    colorspace(NULL), components(0), bpc(0), xppi(0), yppi(0) {}
 };
 
 typedef std::list<ImageInfo> ImageInfoList;
