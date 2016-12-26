@@ -50,7 +50,7 @@ struct ImageInfo {
 };
 
 typedef std::list<ImageInfo> ImageInfoList;
-typedef ImageInfoList::const_iterator ImageInfoListConstIterator;
+typedef ImageInfoList::iterator ImageInfoListIterator;
 
 //------------------------------------------------------------------------
 // ImageListDev
@@ -134,8 +134,8 @@ public:
 				   GfxImageColorMap *maskColorMap,
 				   GBool maskInterpolate);
 
-  ImageInfoListConstIterator getListBegin() const { return list.cbegin(); }
-  ImageInfoListConstIterator getListEnd() const { return list.cend(); }
+  ImageInfoListIterator getListBegin() { return list.begin(); }
+  ImageInfoListIterator getListEnd() { return list.end(); }
 
 private:
   void listImage(GfxState *state, Object *ref, Stream *str,

@@ -226,7 +226,7 @@ namespace {
 
       json.Key("images");
       json.StartArray();
-      for (ImageInfoListConstIterator it = dev.getListBegin(); it != dev.getListEnd(); ++it) {
+      for (ImageInfoListIterator it = dev.getListBegin(); it != dev.getListEnd(); ++it) {
         write_image(json, it);
       }
       json.EndArray();
