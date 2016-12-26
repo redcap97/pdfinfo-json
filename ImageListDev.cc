@@ -116,8 +116,8 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
   double *mat = state->getCTM();
   double width2 = mat[0] + mat[2];
   double height2 = mat[1] + mat[3];
-  double xppi = fabs(width*72.0/width2) + 0.5;
-  double yppi = fabs(height*72.0/height2) + 0.5;
+  double xppi = fabs(width*72.0/width2);
+  double yppi = fabs(height*72.0/height2);
   info.xppi = xppi;
   info.yppi = yppi;
 
