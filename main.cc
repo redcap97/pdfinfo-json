@@ -178,6 +178,12 @@ namespace {
     json.Key("height");
     json.Int(image->height);
 
+    json.Key("ppi_x");
+    assert(json.Double(image->xppi));
+
+    json.Key("ppi_y");
+    assert(json.Double(image->yppi));
+
     json.Key("color_space");
     if (image->colorspace) {
       write_string(json, image->colorspace);
@@ -190,12 +196,6 @@ namespace {
 
     json.Key("bits_per_component");
     json.Int(image->bpc);
-
-    json.Key("x_ppi");
-    assert(json.Double(image->xppi));
-
-    json.Key("y_ppi");
-    assert(json.Double(image->yppi));
 
     json.EndObject();
   }
