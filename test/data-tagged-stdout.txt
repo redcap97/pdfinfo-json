@@ -20,6 +20,7 @@
                 "width": 595.3199999999999,
                 "height": 841.92
             },
+            "images": [],
             "is_monochrome": true,
             "is_grayscale": true,
             "is_transparent": false,
