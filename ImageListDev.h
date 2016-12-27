@@ -35,18 +35,28 @@ class GfxState;
 struct ImageInfo {
   int pageNum;
   int imgNum;
+
   const char *type;
   int width;
   int height;
-  const char *colorspace;
-  int components;
-  const char *colorspace2;
-  int components2;
   double xppi;
   double yppi;
 
-  ImageInfo() : pageNum(0), imgNum(0), type(NULL), width(0), height(0),
-    colorspace(NULL), components(0), colorspace2(NULL), components2(0), xppi(0), yppi(0) {}
+  // Color Space
+  const char *colorspace;
+  int components;
+  bool has_colorspace;
+
+  // Base Color Space for csIndexed
+  const char *colorspace2;
+  int components2;
+  bool has_colorspace2;
+
+  // Constructor
+  ImageInfo() :
+    pageNum(0), imgNum(0), type(NULL), width(0), height(0), xppi(0), yppi(0),
+    colorspace(NULL), components(0), has_colorspace(false),
+    colorspace2(NULL), components2(0), has_colorspace2(false) {}
 };
 
 typedef std::list<ImageInfo> ImageInfoList;

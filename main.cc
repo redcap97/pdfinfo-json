@@ -184,7 +184,7 @@ namespace {
     json.Key("ppi_y");
     assert(json.Double(image->yppi));
 
-    if (image->colorspace) {
+    if (image->has_colorspace) {
       json.Key("color_space");
       json.StartObject();
 
@@ -197,7 +197,7 @@ namespace {
       json.EndObject();
     }
 
-    if (image->colorspace2) {
+    if (image->has_colorspace2) {
       json.Key("base_color_space");
       json.StartObject();
 

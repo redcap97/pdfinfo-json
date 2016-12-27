@@ -100,12 +100,14 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
 
     data.colorspace = getColorSpaceName(colorSpace);
     data.components = colorSpace->getNComps();
+    data.has_colorspace = true;
 
     if (colorSpace->getMode() == csIndexed) {
       GfxColorSpace *colorSpace2 = ((GfxIndexedColorSpace*)colorSpace)->getBase();
 
       data.colorspace2 = getColorSpaceName(colorSpace2);
       data.components2 = colorSpace2->getNComps();
+      data.has_colorspace2 = true;
     }
   }
 
