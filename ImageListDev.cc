@@ -53,16 +53,16 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
   type = NULL;
   switch (imageType) {
   case imgImage:
-    type = "image";
+    type = "Image";
     break;
   case imgStencil:
-    type = "stencil";
+    type = "Stencil";
     break;
   case imgMask:
-    type = "mask";
+    type = "Mask";
     break;
   case imgSmask:
-    type = "smask";
+    type = "Smask";
     break;
   }
   info.type = type;
@@ -77,31 +77,33 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
     switch (colorMap->getColorSpace()->getMode()) {
       case csDeviceGray:
       case csCalGray:
-        colorspace = "gray";
+        colorspace = "Gray";
         break;
       case csDeviceRGB:
       case csCalRGB:
-        colorspace = "rgb";
+        colorspace = "RGB";
         break;
       case csDeviceCMYK:
-        colorspace = "cmyk";
+        colorspace = "CMYK";
         break;
       case csLab:
-        colorspace = "lab";
+        colorspace = "Lab";
         break;
       case csICCBased:
-        colorspace = "icc";
+        colorspace = "ICC-Based";
         break;
       case csIndexed:
-        colorspace = "index";
+        colorspace = "Indexed";
         break;
       case csSeparation:
-        colorspace = "sep";
+        colorspace = "Separation";
         break;
       case csDeviceN:
-        colorspace = "devn";
+        colorspace = "DeviceN";
         break;
       case csPattern:
+        colorspace = "Pattern";
+        break;
       default:
         colorspace = NULL;
         break;
