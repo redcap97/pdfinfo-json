@@ -44,14 +44,12 @@ using rapidjson::StringBuffer;
 
 namespace {
   char ownerPassword[33] = "\001";
-  char userPassword[33] = "\001";
   GBool ignoreEncodingError = gFalse;
   GBool printVersion = gFalse;
   GBool printHelp = gFalse;
 
   const ArgDesc argDesc[] = {
     {"--owner-password",        argString, ownerPassword,        sizeof(ownerPassword), "owner password (for encrypted files)"},
-    {"--user-password",         argString, userPassword,         sizeof(userPassword),  "user password (for encrypted files)"},
     {"--ignore-encoding-error", argFlag,   &ignoreEncodingError, 0,                     "ignore encoding errror"},
     {"-v",                      argFlag,   &printVersion,        0,                     "print copyright and version info"},
     {"--version",               argFlag,   &printVersion,        0,                     "print copyright and version info"},
@@ -379,24 +377,16 @@ int main(int argc, char *argv[]) {
   globalParams = new GlobalParams();
 
   {
-    GooString path(argv[1]), *ownerPW = NULL, *userPW = NULL;
+    GooString path(argv[1]), *ownerPW = NULL;
 
     if (ownerPassword[0] != '\001') {
       ownerPW = new GooString(ownerPassword);
     }
 
-    if (userPassword[0] != '\001') {
-      userPW = new GooString(userPassword);
-    }
-
-    doc = PDFDocFactory().createPDFDoc(path, ownerPW, userPW);
+    doc = PDFDocFactory().createPDFDoc(path, ownerPW, NULL);
 
     if (ownerPW) {
       delete ownerPW;
-    }
-
-    if (userPW) {
-      delete userPW;
     }
   }
 
