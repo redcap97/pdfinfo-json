@@ -11,3 +11,6 @@ set -x
 ./pdfinfo-json test/data-with-form.pdf > test/data-with-form-stdout.txt
 ./pdfinfo-json test/data-unembedded-fonts.pdf > test/data-unembedded-fonts-stdout.txt
 ./pdfinfo-json test/data-tagged.pdf > test/data-tagged-stdout.txt
+./pdfinfo-json test/data-with-image.pdf > test/data-with-image-stdout.txt
+./pdfinfo-json test/data-with-indexed-image.pdf > test/data-with-indexed-image-stdout.txt
+./pdfinfo-json test/data-with-stencil-image.pdf > test/data-with-stencil-image-stdout.txt

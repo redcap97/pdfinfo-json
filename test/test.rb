@@ -67,6 +67,27 @@ class PdfInfoJsonTest < Test::Unit::TestCase
     )
   end
 
+  def test_pdf_with_image
+    assert_command(
+      %w(./pdfinfo-json test/data-with-image.pdf),
+      expected_stdout: File.read('test/data-with-image-stdout.txt')
+    )
+  end
+
+  def test_pdf_with_indexed_image
+    assert_command(
+      %w(./pdfinfo-json test/data-with-indexed-image.pdf),
+      expected_stdout: File.read('test/data-with-indexed-image-stdout.txt')
+    )
+  end
+
+  def test_pdf_with_stencil_image
+    assert_command(
+      %w(./pdfinfo-json test/data-with-stencil-image.pdf),
+      expected_stdout: File.read('test/data-with-stencil-image-stdout.txt')
+    )
+  end
+
   private
 
   def assert_command(arguments, expected_stdout: '', expected_stderr: '', expected_status: 0)

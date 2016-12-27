@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <rapidjson/stringbuffer.h>
 
 #include "JSInfo.h"
+#include "ImageListDev.h"
 #include "parseargs.h"
 
 extern "C" {
@@ -160,6 +161,58 @@ namespace {
     json.EndObject();
   }
 
+  template <typename JSON, typename ImageInfoPointer>
+  void write_image(JSON &json, ImageInfoPointer image) {
+    json.StartObject();
+
+    json.Key("type");
+    if (image->type) {
+      write_string(json, image->type);
+    } else {
+      json.Null();
+    }
+
+    json.Key("width");
+    json.Int(image->width);
+
+    json.Key("height");
+    json.Int(image->height);
+
+    json.Key("ppi_x");
+    assert(json.Double(image->xppi));
+
+    json.Key("ppi_y");
+    assert(json.Double(image->yppi));
+
+    if (image->has_colorspace) {
+      json.Key("color_space");
+      json.StartObject();
+
+      json.Key("type");
+      write_string(json, image->colorspace);
+
+      json.Key("number_of_components");
+      json.Int(image->components);
+
+      json.EndObject();
+    }
+
+    if (image->has_colorspace2) {
+      json.Key("base_color_space");
+      json.StartObject();
+
+      json.Key("type");
+      write_string(json, image->colorspace2);
+
+      json.Key("number_of_components");
+      json.Int(image->components2);
+
+      json.EndObject();
+    }
+
+    json.EndObject();
+  }
+
   template <typename JSON>
   void write_page(JSON &json, PDFDoc *doc, Page *page) {
     json.StartObject();
@@ -172,6 +225,18 @@ namespace {
 
     json.Key("crop_box");
     write_box(json, page->getCropBox());
+
+    {
+      ImageListDev dev;
+      page->display(&dev, 72, 72, 0, gTrue, gFalse, gFalse);
+
+      json.Key("images");
+      json.StartArray();
+      for (ImageInfoListIterator it = dev.getListBegin(); it != dev.getListEnd(); ++it) {
+        write_image(json, it);
+      }
+      json.EndArray();
+    }
 
     {
       PreScanOutputDev *scan = new PreScanOutputDev(doc);

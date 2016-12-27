@@ -1,0 +1,54 @@
+{
+    "version": "1.4",
+    "is_tagged": false,
+    "contains_form": false,
+    "contains_javascript": false,
+    "number_of_pages": 1,
+    "is_encrypted": false,
+    "pages": [
+        {
+            "page_number": 1,
+            "media_box": {
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 77.03720000000001,
+                "height": 77.03720000000001
+            },
+            "crop_box": {
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 77.03720000000001,
+                "height": 77.03720000000001
+            },
+            "images": [
+                {
+                    "type": "Image",
+                    "width": 375,
+                    "height": 375,
+                    "ppi_x": 350.4800278307103,
+                    "ppi_y": 350.4800278307103,
+                    "color_space": {
+                        "type": "RGB",
+                        "number_of_components": 3
+                    }
+                },
+                {
+                    "type": "Smask",
+                    "width": 375,
+                    "height": 375,
+                    "ppi_x": 350.4800278307103,
+                    "ppi_y": 350.4800278307103,
+                    "color_space": {
+                        "type": "Gray",
+                        "number_of_components": 1
+                    }
+                }
+            ],
+            "is_monochrome": false,
+            "is_grayscale": false,
+            "is_transparent": true,
+            "number_of_annotations": 0
+        }
+    ],
+    "fonts": []
+}

@@ -1,7 +1,7 @@
 .PHONY: all clean install
 
 target = pdfinfo-json
-objects = main.o JSInfo.o parseargs.o is_utf8.o
+objects = main.o JSInfo.o ImageListDev.o parseargs.o is_utf8.o
 dependencies = $(objects:%.o=%.d)
 
 CPPFLAGS = -g -O2 -MD -MP $$(pkg-config poppler --cflags) -Irapidjson/include
