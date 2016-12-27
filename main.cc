@@ -188,7 +188,7 @@ namespace {
       json.Key("color_space");
       json.StartObject();
 
-      json.Key("name");
+      json.Key("type");
       write_string(json, image->colorspace);
 
       json.Key("number_of_components");
@@ -201,10 +201,10 @@ namespace {
       json.Key("base_color_space");
       json.StartObject();
 
-      json.Key("name");
+      json.Key("type");
       write_string(json, image->colorspace2);
 
-      json.Key("base_number_of_components");
+      json.Key("number_of_components");
       json.Int(image->components2);
 
       json.EndObject();

@@ -28,7 +28,7 @@
                     "ppi_x": 350.4800278307103,
                     "ppi_y": 350.4800278307103,
                     "color_space": {
-                        "name": "RGB",
+                        "type": "RGB",
                         "number_of_components": 3
                     }
                 },
@@ -39,7 +39,7 @@
                     "ppi_x": 350.4800278307103,
                     "ppi_y": 350.4800278307103,
                     "color_space": {
-                        "name": "Gray",
+                        "type": "Gray",
                         "number_of_components": 1
                     }
                 }
