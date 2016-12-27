@@ -1,0 +1,39 @@
+{
+    "version": "1.5",
+    "is_tagged": false,
+    "contains_form": false,
+    "contains_javascript": false,
+    "number_of_pages": 1,
+    "is_encrypted": false,
+    "pages": [
+        {
+            "page_number": 1,
+            "media_box": {
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 532.91,
+                "height": 745.51
+            },
+            "crop_box": {
+                "offset_x": 0.0,
+                "offset_y": 0.0,
+                "width": 532.91,
+                "height": 745.51
+            },
+            "images": [
+                {
+                    "type": "Stencil",
+                    "width": 375,
+                    "height": 375,
+                    "ppi_x": 72.0,
+                    "ppi_y": 72.0
+                }
+            ],
+            "is_monochrome": false,
+            "is_grayscale": false,
+            "is_transparent": false,
+            "number_of_annotations": 0
+        }
+    ],
+    "fonts": []
+}
