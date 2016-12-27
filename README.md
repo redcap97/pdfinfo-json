@@ -12,7 +12,7 @@ Please type following command:
 $ pdfinfo-json /path/to/pdf-file
 {
     "version": "1.5",
-    "is_tagged": true,
+    "is_tagged": false,
     "contains_form": false,
     "contains_javascript": false,
     "number_of_pages": 1,
@@ -23,35 +23,34 @@ $ pdfinfo-json /path/to/pdf-file
             "media_box": {
                 "offset_x": 0.0,
                 "offset_y": 0.0,
-                "width": 516.0,
-                "height": 728.64
+                "width": 436.54,
+                "height": 612.2800000000001
             },
             "crop_box": {
                 "offset_x": 0.0,
                 "offset_y": 0.0,
-                "width": 516.0,
-                "height": 728.64
+                "width": 436.54,
+                "height": 612.2800000000001
             },
+            "images": [
+                {
+                    "type": "Image",
+                    "width": 924,
+                    "height": 924,
+                    "ppi_x": 468.50702509692595,
+                    "ppi_y": 468.50702509692595,
+                    "color_space": {
+                        "type": "CMYK",
+                        "number_of_components": 4
+                    }
+                }
+            ],
             "number_of_annotations": 0
         }
     ],
     "fonts": [
         {
-            "name": "ABCDEE+MS-Mincho",
-            "type": "TrueType",
-            "encoding": "WinAnsi",
-            "is_embedded": true,
-            "is_subset": true
-        },
-        {
-            "name": "ABCDEE+MS-Mincho",
-            "type": "CID TrueType",
-            "encoding": "Identity-H",
-            "is_embedded": true,
-            "is_subset": true
-        },
-        {
-            "name": "ABCDEE+Century",
+            "name": "KQSFZR+Arial-Black",
             "type": "TrueType",
             "encoding": "WinAnsi",
             "is_embedded": true,
