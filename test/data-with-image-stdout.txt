@@ -44,9 +44,6 @@
                     }
                 }
             ],
-            "is_monochrome": false,
-            "is_grayscale": false,
-            "is_transparent": true,
             "number_of_annotations": 0
         }
     ],
