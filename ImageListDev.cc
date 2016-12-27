@@ -86,26 +86,26 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
 			       GfxImageColorMap *colorMap,
 			       GBool interpolate, GBool inlineImg,
 			       ImageType imageType) {
-  ImageInfo info;
+  ImageInfo data;
 
-  info.pageNum = pageNum;
-  info.imgNum = imgNum;
+  data.pageNum = pageNum;
+  data.imgNum = imgNum;
 
-  info.type = getImageTypeName(imageType);
-  info.width = width;
-  info.height = height;
+  data.type = getImageTypeName(imageType);
+  data.width = width;
+  data.height = height;
 
   if (colorMap && colorMap->isOk()) {
     GfxColorSpace *colorSpace = colorMap->getColorSpace();
 
-    info.colorspace = getColorSpaceName(colorSpace);
-    info.components = colorSpace->getNComps();
+    data.colorspace = getColorSpaceName(colorSpace);
+    data.components = colorSpace->getNComps();
 
     if (colorSpace->getMode() == csIndexed) {
       GfxColorSpace *colorSpace2 = ((GfxIndexedColorSpace*)colorSpace)->getBase();
 
-      info.colorspace2 = getColorSpaceName(colorSpace2);
-      info.components2 = colorSpace2->getNComps();
+      data.colorspace2 = getColorSpaceName(colorSpace2);
+      data.components2 = colorSpace2->getNComps();
     }
   }
 
@@ -114,10 +114,10 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
   double width2 = mat[0] + mat[2];
   double height2 = mat[1] + mat[3];
 
-  info.xppi = fabs(width*72.0/width2);
-  info.yppi = fabs(height*72.0/height2);
+  data.xppi = fabs(width*72.0/width2);
+  data.yppi = fabs(height*72.0/height2);
 
-  list.push_back(info);
+  list.push_back(data);
   ++imgNum;
 }
 
