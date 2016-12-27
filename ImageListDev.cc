@@ -29,6 +29,50 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "JBIG2Stream.h"
 #include "ImageListDev.h"
 
+namespace {
+  const char *getColorSpaceName(GfxColorSpace *colorSpace) {
+    switch (colorSpace->getMode()) {
+      case csDeviceGray:
+      case csCalGray:
+        return "Gray";
+      case csDeviceRGB:
+      case csCalRGB:
+        return "RGB";
+      case csDeviceCMYK:
+        return "CMYK";
+      case csLab:
+        return "Lab";
+      case csICCBased:
+        return "ICC-Based";
+      case csIndexed:
+        return "Indexed";
+      case csSeparation:
+        return "Separation";
+      case csDeviceN:
+        return "DeviceN";
+      case csPattern:
+        return "Pattern";
+      default:
+        return NULL;
+    }
+  }
+
+  const char *getImageTypeName(ImageListDev::ImageType imageType) {
+    switch (imageType) {
+    case ImageListDev::imgImage:
+      return "Image";
+    case ImageListDev::imgStencil:
+      return "Stencil";
+    case ImageListDev::imgMask:
+      return "Mask";
+    case ImageListDev::imgSmask:
+      return "Smask";
+    default:
+      return NULL;
+    }
+  }
+}
+
 ImageListDev::ImageListDev() {
   imgNum = 0;
   pageNum = 0;
@@ -42,86 +86,36 @@ void ImageListDev::listImage(GfxState *state, Object *ref, Stream *str,
 			       GfxImageColorMap *colorMap,
 			       GBool interpolate, GBool inlineImg,
 			       ImageType imageType) {
-  const char *type;
-  const char *colorspace;
-  int components, bpc;
-
   ImageInfo info;
+
   info.pageNum = pageNum;
   info.imgNum = imgNum;
 
-  type = NULL;
-  switch (imageType) {
-  case imgImage:
-    type = "Image";
-    break;
-  case imgStencil:
-    type = "Stencil";
-    break;
-  case imgMask:
-    type = "Mask";
-    break;
-  case imgSmask:
-    type = "Smask";
-    break;
-  }
-  info.type = type;
+  info.type = getImageTypeName(imageType);
   info.width = width;
   info.height = height;
 
-  colorspace = NULL;
-  /* masks and stencils default to ncomps = 1 and bpc = 1 */
-  components = 1;
-  bpc = 1;
   if (colorMap && colorMap->isOk()) {
-    switch (colorMap->getColorSpace()->getMode()) {
-      case csDeviceGray:
-      case csCalGray:
-        colorspace = "Gray";
-        break;
-      case csDeviceRGB:
-      case csCalRGB:
-        colorspace = "RGB";
-        break;
-      case csDeviceCMYK:
-        colorspace = "CMYK";
-        break;
-      case csLab:
-        colorspace = "Lab";
-        break;
-      case csICCBased:
-        colorspace = "ICC-Based";
-        break;
-      case csIndexed:
-        colorspace = "Indexed";
-        break;
-      case csSeparation:
-        colorspace = "Separation";
-        break;
-      case csDeviceN:
-        colorspace = "DeviceN";
-        break;
-      case csPattern:
-        colorspace = "Pattern";
-        break;
-      default:
-        colorspace = NULL;
-        break;
+    GfxColorSpace *colorSpace = colorMap->getColorSpace();
+
+    info.colorspace = getColorSpaceName(colorSpace);
+    info.components = colorSpace->getNComps();
+
+    if (colorSpace->getMode() == csIndexed) {
+      GfxColorSpace *colorSpace2 = ((GfxIndexedColorSpace*)colorSpace)->getBase();
+
+      info.colorspace2 = getColorSpaceName(colorSpace2);
+      info.components2 = colorSpace2->getNComps();
     }
-    components = colorMap->getNumPixelComps();
-    bpc = colorMap->getBits();
   }
-  info.colorspace = colorspace;
-  info.components = components;
-  info.bpc = bpc;
 
   double *mat = state->getCTM();
+
   double width2 = mat[0] + mat[2];
   double height2 = mat[1] + mat[3];
-  double xppi = fabs(width*72.0/width2);
-  double yppi = fabs(height*72.0/height2);
-  info.xppi = xppi;
-  info.yppi = yppi;
+
+  info.xppi = fabs(width*72.0/width2);
+  info.yppi = fabs(height*72.0/height2);
 
   list.push_back(info);
   ++imgNum;

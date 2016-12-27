@@ -184,18 +184,31 @@ namespace {
     json.Key("ppi_y");
     assert(json.Double(image->yppi));
 
-    json.Key("color_space");
     if (image->colorspace) {
+      json.Key("color_space");
+      json.StartObject();
+
+      json.Key("name");
       write_string(json, image->colorspace);
-    } else {
-      json.Null();
+
+      json.Key("number_of_components");
+      json.Int(image->components);
+
+      json.EndObject();
     }
 
-    json.Key("number_of_components");
-    json.Int(image->components);
+    if (image->colorspace2) {
+      json.Key("base_color_space");
+      json.StartObject();
 
-    json.Key("bits_per_component");
-    json.Int(image->bpc);
+      json.Key("name");
+      write_string(json, image->colorspace2);
+
+      json.Key("base_number_of_components");
+      json.Int(image->components2);
+
+      json.EndObject();
+    }
 
     json.EndObject();
   }
