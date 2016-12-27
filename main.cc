@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <PDFDoc.h>
 #include <PDFDocFactory.h>
-#include <PreScanOutputDev.h>
 #include <Annot.h>
 #include <FontInfo.h>
 #include <GlobalParams.h>
