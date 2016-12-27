@@ -213,7 +213,7 @@ namespace {
   }
 
   template <typename JSON>
-  void write_page(JSON &json, PDFDoc *doc, Page *page) {
+  void write_page(JSON &json, Page *page) {
     json.StartObject();
 
     json.Key("page_number");
@@ -309,7 +309,7 @@ namespace {
     json.Key("pages");
     json.StartArray();
     for (int i = 1, last = doc->getNumPages(); i <= last; ++i) {
-      write_page(json, doc, doc->getPage(i));
+      write_page(json, doc->getPage(i));
     }
     json.EndArray();
 
