@@ -74,12 +74,6 @@ public:
     imgMask,
     imgSmask
   };
-  enum ImageFormat {
-    imgRGB,
-    imgGray,
-    imgMonochrome,
-    imgCMYK
-  };
 
   // Constructor
   ImageListDev();
