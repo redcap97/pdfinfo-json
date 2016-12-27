@@ -22,24 +22,26 @@
             },
             "images": [
                 {
-                    "type": "image",
+                    "type": "Image",
                     "width": 375,
                     "height": 375,
                     "ppi_x": 350.4800278307103,
                     "ppi_y": 350.4800278307103,
-                    "color_space": "rgb",
-                    "number_of_components": 3,
-                    "bits_per_component": 8
+                    "color_space": {
+                        "name": "RGB",
+                        "number_of_components": 3
+                    }
                 },
                 {
-                    "type": "smask",
+                    "type": "Smask",
                     "width": 375,
                     "height": 375,
                     "ppi_x": 350.4800278307103,
                     "ppi_y": 350.4800278307103,
-                    "color_space": "gray",
-                    "number_of_components": 1,
-                    "bits_per_component": 8
+                    "color_space": {
+                        "name": "Gray",
+                        "number_of_components": 1
+                    }
                 }
             ],
             "is_monochrome": false,
