@@ -37,9 +37,6 @@
                     }
                 }
             ],
-            "is_monochrome": false,
-            "is_grayscale": false,
-            "is_transparent": false,
             "number_of_annotations": 0
         }
     ],

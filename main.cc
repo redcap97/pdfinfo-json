@@ -238,22 +238,6 @@ namespace {
       json.EndArray();
     }
 
-    {
-      PreScanOutputDev *scan = new PreScanOutputDev(doc);
-      page->display(scan, 72, 72, 0, gTrue, gFalse, gFalse);
-
-      json.Key("is_monochrome");
-      json.Bool(scan->isMonochrome() ? true : false);
-
-      json.Key("is_grayscale");
-      json.Bool(scan->isGray() ? true : false);
-
-      json.Key("is_transparent");
-      json.Bool(scan->usesTransparency() ? true : false);
-
-      delete scan;
-    }
-
     json.Key("number_of_annotations");
     json.Int(page->getAnnots()->getNumAnnots());
 

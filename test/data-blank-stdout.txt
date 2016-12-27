@@ -21,9 +21,6 @@
                 "height": 841.89
             },
             "images": [],
-            "is_monochrome": true,
-            "is_grayscale": true,
-            "is_transparent": false,
             "number_of_annotations": 0
         }
     ],
