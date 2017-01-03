@@ -93,7 +93,7 @@ class PdfInfoJsonTest < Test::Unit::TestCase
   def assert_command(arguments, expected_stdout: '', expected_stderr: '', expected_status: 0)
     stdout, stderr, status = Open3.capture3(*arguments)
 
-    assert_equal(expected_status, status.to_i >> 8)
+    assert_equal(expected_status, status.exitstatus)
     assert_equal(expected_stdout, stdout)
     assert_equal(expected_stderr, stderr)
   end
