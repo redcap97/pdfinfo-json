@@ -4,12 +4,15 @@
 
 pdfinfo-json is a PDF document information extractor which outputs data using JSON.
 
-## How to Run
-
-Please type following command:
+## Usage
 
 ```
-$ pdfinfo-json /path/to/pdf-file
+pdfinfo-json /path/to/pdf-file
+```
+
+`pdfinfo-json` outputs like the following JSON data:
+
+```
 {
     "version": "1.5",
     "is_tagged": false,
@@ -77,6 +80,15 @@ make install
 # Build and install to /usr
 make PREFIX=/usr
 make install PREFIX=/usr
+```
+
+## Build and Install (macOS)
+
+You can install `pdfinfo-json` from Homebrew.
+
+```
+brew tap redcap97/pdfinfo-json
+brew install pdfinfo-json
 ```
 
 ## License
