@@ -5,6 +5,7 @@ objects = main.o JSInfo.o ImageListDev.o parseargs.o is_utf8.o
 dependencies = $(objects:%.o=%.d)
 
 CPPFLAGS = -g -O2 -MD -MP $$(pkg-config poppler --cflags) -Irapidjson/include
+CXXFLAGS = -std=c++11
 LDFLAGS = $$(pkg-config poppler --libs)
 
 ifdef PREFIX
