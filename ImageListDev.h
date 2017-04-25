@@ -74,6 +74,13 @@ public:
     imgMask,
     imgSmask
   };
+  enum ImageFormat {
+    imgRGB,
+    imgRGB48,
+    imgGray,
+    imgMonochrome,
+    imgCMYK
+  };
 
   // Constructor
   ImageListDev();
@@ -147,6 +154,7 @@ private:
 		 GfxImageColorMap *colorMap,
 		 GBool interpolate, GBool inlineImg,
 		 ImageType imageType);
+  void skipImage(ImageFormat format, Stream *str, int width, int height, GfxImageColorMap *colorMap);
   int pageNum;			// current page number
   int imgNum;			// current image number
   GBool ok;			// set up ok?
