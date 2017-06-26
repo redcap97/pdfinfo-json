@@ -183,127 +183,33 @@ void ImageListDev::drawSoftMaskedImage(
 }
 
 void ImageListDev::skipImage(ImageFormat format, Stream *str, int width, int height, GfxImageColorMap *colorMap) {
-  FILE *f;
   ImageStream *imgStr = NULL;
-  unsigned char *row;
-  unsigned char *rowp;
-  Guchar *p;
-  GfxRGB rgb;
-  GfxCMYK cmyk;
-  GfxGray gray;
-  Guchar zero = 0;
-  int invert_bits;
 
   if (format != imgMonochrome) {
-    // initialize stream
     imgStr = new ImageStream(str, width, colorMap->getNumPixelComps(),
                              colorMap->getBits());
     imgStr->reset();
   } else {
-    // initialize stream
     str->reset();
   }
 
-  int pixelSize = sizeof(unsigned int);
-  if (format == imgRGB48)
-    pixelSize = 2*sizeof(unsigned int);
-
-  row = (unsigned char *) gmallocn(width, pixelSize);
-
-  // PDF masks use 0 = draw current color, 1 = leave unchanged.
-  // We invert this to provide the standard interpretation of alpha
-  // (0 = transparent, 1 = opaque). If the colorMap already inverts
-  // the mask we leave the data unchanged.
-  invert_bits = 0xff;
-  if (colorMap) {
-    colorMap->getGray(&zero, &gray);
-    if (colToByte(gray) == 0)
-      invert_bits = 0x00;
-  }
-
-  // for each line...
   for (int y = 0; y < height; y++) {
     switch (format) {
     case imgRGB:
-      p = imgStr->getLine();
-      rowp = row;
-      for (int x = 0; x < width; ++x) {
-        if (p) {
-          colorMap->getRGB(p, &rgb);
-          *rowp++ = colToByte(rgb.r);
-          *rowp++ = colToByte(rgb.g);
-          *rowp++ = colToByte(rgb.b);
-          p += colorMap->getNumPixelComps();
-        } else {
-          *rowp++ = 0;
-          *rowp++ = 0;
-          *rowp++ = 0;
-        }
-      }
-      break;
-
-    case imgRGB48: {
-      p = imgStr->getLine();
-      Gushort *rowp16 = (Gushort*)row;
-      for (int x = 0; x < width; ++x) {
-	if (p) {
-	  colorMap->getRGB(p, &rgb);
-	  *rowp16++ = colToShort(rgb.r);
-	  *rowp16++ = colToShort(rgb.g);
-	  *rowp16++ = colToShort(rgb.b);
-	  p += colorMap->getNumPixelComps();
-	} else {
-	  *rowp16++ = 0;
-	    *rowp16++ = 0;
-	    *rowp16++ = 0;
-	}
-      }
-      break;
-    }
-
+    case imgRGB48:
     case imgCMYK:
-      p = imgStr->getLine();
-      rowp = row;
-      for (int x = 0; x < width; ++x) {
-        if (p) {
-          colorMap->getCMYK(p, &cmyk);
-          *rowp++ = colToByte(cmyk.c);
-          *rowp++ = colToByte(cmyk.m);
-          *rowp++ = colToByte(cmyk.y);
-          *rowp++ = colToByte(cmyk.k);
-          p += colorMap->getNumPixelComps();
-        } else {
-          *rowp++ = 0;
-          *rowp++ = 0;
-          *rowp++ = 0;
-          *rowp++ = 0;
-        }
-      }
-      break;
-
     case imgGray:
-      p = imgStr->getLine();
-      rowp = row;
-      for (int x = 0; x < width; ++x) {
-        if (p) {
-          colorMap->getGray(p, &gray);
-          *rowp++ = colToByte(gray);
-          p += colorMap->getNumPixelComps();
-        } else {
-          *rowp++ = 0;
-        }
-      }
+      imgStr->getLine();
       break;
 
     case imgMonochrome:
       int size = (width + 7)/8;
       for (int x = 0; x < size; x++)
-        row[x] = str->getChar() ^ invert_bits;
+        str->getChar();
       break;
     }
   }
 
-  gfree(row);
   if (format != imgMonochrome) {
     imgStr->close();
     delete imgStr;
