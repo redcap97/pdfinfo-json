@@ -3,6 +3,7 @@
 target = pdfinfo-json
 objects = main.o JSInfo.o ImageListDev.o parseargs.o is_utf8.o
 dependencies = $(objects:%.o=%.d)
+compatible_poppler_version = 0.56.0
 
 CPPFLAGS = -g -O2 -MD -MP $$(pkg-config poppler --cflags) -Irapidjson/include
 CXXFLAGS = -std=c++11
@@ -15,10 +16,17 @@ else
 	PREFIX = /usr/local
 endif
 
-all: $(target)
+all: build
+
+build: check-poppler-version
+	$(MAKE) $(target)
 
 test: all
 	ruby test/test.rb
+
+check-poppler-version:
+	@echo checking whether version of poppler is $(compatible_poppler_version)...
+	@pkg-config poppler --exact-version $(compatible_poppler_version)
 
 update-test: all
 	test/update-test
