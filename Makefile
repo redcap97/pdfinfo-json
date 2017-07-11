@@ -1,5 +1,4 @@
 .PHONY: all clean install
-.NOTPARALLEL: check-poppler-version
 
 target = pdfinfo-json
 objects = main.o JSInfo.o ImageListDev.o parseargs.o is_utf8.o
@@ -17,7 +16,10 @@ else
 	PREFIX = /usr/local
 endif
 
-all: check-poppler-version $(target)
+all: build
+
+build: check-poppler-version
+	$(MAKE) $(target)
 
 test: all
 	ruby test/test.rb
