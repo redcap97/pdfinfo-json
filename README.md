@@ -82,15 +82,6 @@ make PREFIX=/usr
 make install PREFIX=/usr
 ```
 
-## Build and Install (macOS)
-
-You can install `pdfinfo-json` from Homebrew.
-
-```
-brew tap redcap97/pdfinfo-json
-brew install pdfinfo-json
-```
-
 ## License
 
 Licensed under the GPLv3: http://www.gnu.org/licenses/gpl-3.0.txt
