@@ -2,6 +2,8 @@
 
 # pdfinfo-json
 
+**WARNING: This project is not maintained anymore.**
+
 pdfinfo-json is a PDF document information extractor which outputs data using JSON.
 
 ## Usage
